@@ -1,0 +1,554 @@
+{
+  "data": [
+    {
+      "map_name": "Buried City",
+      "conditions": [
+        {
+          "name": "Prospecting Probes",
+          "start": "00:00",
+          "end": "01:00"
+        },
+        {
+          "name": "Husk Graveyard",
+          "start": "00:00",
+          "end": "01:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "03:00",
+          "end": "04:00"
+        },
+        {
+          "name": "Lush Blooms",
+          "start": "04:00",
+          "end": "05:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "04:00",
+          "end": "05:00"
+        },
+        {
+          "name": "Uncovered Caches",
+          "start": "04:00",
+          "end": "05:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "06:00",
+          "end": "08:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "07:00",
+          "end": "08:00"
+        },
+        {
+          "name": "Prospecting Probes",
+          "start": "08:00",
+          "end": "09:00"
+        },
+        {
+          "name": "Husk Graveyard",
+          "start": "08:00",
+          "end": "09:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "11:00",
+          "end": "12:00"
+        },
+        {
+          "name": "Lush Blooms",
+          "start": "12:00",
+          "end": "13:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "12:00",
+          "end": "13:00"
+        },
+        {
+          "name": "Uncovered Caches",
+          "start": "12:00",
+          "end": "13:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "14:00",
+          "end": "16:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "15:00",
+          "end": "16:00"
+        },
+        {
+          "name": "Prospecting Probes",
+          "start": "16:00",
+          "end": "17:00"
+        },
+        {
+          "name": "Husk Graveyard",
+          "start": "16:00",
+          "end": "17:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "19:00",
+          "end": "20:00"
+        },
+        {
+          "name": "Lush Blooms",
+          "start": "20:00",
+          "end": "21:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "20:00",
+          "end": "21:00"
+        },
+        {
+          "name": "Uncovered Caches",
+          "start": "20:00",
+          "end": "21:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "22:00",
+          "end": "00:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "23:00",
+          "end": "00:00"
+        }
+      ]
+    },
+    {
+      "map_name": "Spaceport",
+      "conditions": [
+        {
+          "name": "Hidden Bunker",
+          "start": "00:00",
+          "end": "01:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "00:00",
+          "end": "01:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "02:00",
+          "end": "04:00"
+        },
+        {
+          "name": "Matriarch",
+          "start": "03:00",
+          "end": "04:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "04:00",
+          "end": "05:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "05:00",
+          "end": "06:00"
+        },
+        {
+          "name": "Launch Tower Loot",
+          "start": "07:00",
+          "end": "08:00"
+        },
+        {
+          "name": "Hidden Bunker",
+          "start": "08:00",
+          "end": "09:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "10:00",
+          "end": "12:00"
+        },
+        {
+          "name": "Lush Blooms",
+          "start": "11:00",
+          "end": "12:00"
+        },
+        {
+          "name": "Uncovered Caches",
+          "start": "11:00",
+          "end": "12:00"
+        },
+        {
+          "name": "Prospecting Probes",
+          "start": "11:00",
+          "end": "12:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "12:00",
+          "end": "13:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "13:00",
+          "end": "14:00"
+        },
+        {
+          "name": "Launch Tower Loot",
+          "start": "15:00",
+          "end": "16:00"
+        },
+        {
+          "name": "Hidden Bunker",
+          "start": "16:00",
+          "end": "17:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "18:00",
+          "end": "20:00"
+        },
+        {
+          "name": "Matriarch",
+          "start": "19:00",
+          "end": "20:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "20:00",
+          "end": "21:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "21:00",
+          "end": "22:00"
+        },
+        {
+          "name": "Harvester",
+          "start": "23:00",
+          "end": "00:00"
+        }
+      ]
+    },
+    {
+      "map_name": "Dam",
+      "conditions": [
+        {
+          "name": "Lush Blooms",
+          "start": "01:00",
+          "end": "02:00"
+        },
+        {
+          "name": "Prospecting Probes",
+          "start": "01:00",
+          "end": "02:00"
+        },
+        {
+          "name": "Uncovered Caches",
+          "start": "01:00",
+          "end": "02:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "02:00",
+          "end": "03:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "02:00",
+          "end": "03:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "04:00",
+          "end": "06:00"
+        },
+        {
+          "name": "Matriarch",
+          "start": "05:00",
+          "end": "06:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "06:00",
+          "end": "07:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "07:00",
+          "end": "08:00"
+        },
+        {
+          "name": "Harvester",
+          "start": "09:00",
+          "end": "10:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "10:00",
+          "end": "11:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "10:00",
+          "end": "11:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "12:00",
+          "end": "14:00"
+        },
+        {
+          "name": "Matriarch",
+          "start": "13:00",
+          "end": "14:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "14:00",
+          "end": "15:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "15:00",
+          "end": "16:00"
+        },
+        {
+          "name": "Prospecting Probes",
+          "start": "17:00",
+          "end": "18:00"
+        },
+        {
+          "name": "Uncovered Caches",
+          "start": "17:00",
+          "end": "18:00"
+        },
+        {
+          "name": "Husk Graveyard",
+          "start": "17:00",
+          "end": "18:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "18:00",
+          "end": "19:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "18:00",
+          "end": "19:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "20:00",
+          "end": "22:00"
+        },
+        {
+          "name": "Harvester",
+          "start": "21:00",
+          "end": "22:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "22:00",
+          "end": "23:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "23:00",
+          "end": "00:00"
+        }
+      ]
+    },
+    {
+      "map_name": "Blue Gate",
+      "conditions": [
+        {
+          "name": "Cold Snap",
+          "start": "00:00",
+          "end": "02:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "01:00",
+          "end": "02:00"
+        },
+        {
+          "name": "Matriarch",
+          "start": "02:00",
+          "end": "03:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "03:00",
+          "end": "04:00"
+        },
+        {
+          "name": "Prospecting Probes",
+          "start": "05:00",
+          "end": "06:00"
+        },
+        {
+          "name": "Locked Gate",
+          "start": "05:00",
+          "end": "06:00"
+        },
+        {
+          "name": "Husk Graveyard",
+          "start": "05:00",
+          "end": "06:00"
+        },
+        {
+          "name": "Uncovered Caches",
+          "start": "05:00",
+          "end": "06:00"
+        },
+        {
+          "name": "Locked Gate",
+          "start": "06:00",
+          "end": "07:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "08:00",
+          "end": "10:00"
+        },
+        {
+          "name": "Matriarch",
+          "start": "08:00",
+          "end": "09:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "09:00",
+          "end": "10:00"
+        },
+        {
+          "name": "Harvester",
+          "start": "11:00",
+          "end": "12:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "11:00",
+          "end": "12:00"
+        },
+        {
+          "name": "Locked Gate",
+          "start": "13:00",
+          "end": "14:00"
+        },
+        {
+          "name": "Matriarch",
+          "start": "14:00",
+          "end": "15:00"
+        },
+        {
+          "name": "Electromagnetic Storm",
+          "start": "14:00",
+          "end": "15:00"
+        },
+        {
+          "name": "Cold Snap",
+          "start": "16:00",
+          "end": "18:00"
+        },
+        {
+          "name": "Prospecting Probes",
+          "start": "17:00",
+          "end": "18:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "17:00",
+          "end": "18:00"
+        },
+        {
+          "name": "Lush Blooms",
+          "start": "17:00",
+          "end": "18:00"
+        },
+        {
+          "name": "Uncovered Caches",
+          "start": "17:00",
+          "end": "18:00"
+        },
+        {
+          "name": "Locked Gate",
+          "start": "19:00",
+          "end": "20:00"
+        },
+        {
+          "name": "Harvester",
+          "start": "20:00",
+          "end": "21:00"
+        },
+        {
+          "name": "Locked Gate",
+          "start": "21:00",
+          "end": "22:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "22:00",
+          "end": "23:00"
+        },
+        {
+          "name": "Prospecting Probes",
+          "start": "23:00",
+          "end": "00:00"
+        },
+        {
+          "name": "Husk Graveyard",
+          "start": "23:00",
+          "end": "00:00"
+        },
+        {
+          "name": "Uncovered Caches",
+          "start": "23:00",
+          "end": "00:00"
+        }
+      ]
+    },
+    {
+      "map_name": "Stella Montis",
+      "conditions": [
+        {
+          "name": "Night Raid",
+          "start": "02:00",
+          "end": "03:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "06:00",
+          "end": "07:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "10:00",
+          "end": "11:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "14:00",
+          "end": "15:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "18:00",
+          "end": "19:00"
+        },
+        {
+          "name": "Night Raid",
+          "start": "22:00",
+          "end": "23:00"
+        }
+      ]
+    }
+  ]
+}
