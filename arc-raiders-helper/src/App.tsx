@@ -19,10 +19,11 @@ function App() {
     };
   }, []);
 
+  // TODO: fix list keys
   const maps = data.data.map((map: { map_name: string; conditions: { name: string; start: string; end: string; }[] }) =>
     <li key={map.map_name}>
       <h1>{map.map_name}</h1>
-      <Map currTime={time} mapName={map.map_name} conditions={map.conditions}/>
+      <Map currTime={time} conditions={map.conditions}/>
     </li>
   );
 

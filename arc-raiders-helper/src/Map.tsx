@@ -11,13 +11,17 @@ function formatTime(ms: number) {
     return `${hours}:${formattedMinutes}:${formattedSeconds}`
 }
 
-function Map({currTime, mapName, conditions} : {currTime: Date; mapName: string; conditions: {name: string; start: string; end: string}[]}) {
+function Map({currTime, conditions} : {currTime: Date; conditions: {name: string; start: string; end: string}[]}) {
     // const currUTCTime = new Date(currTime.getTime() + (currTime.getTimezoneOffset() * 60 * 1000));
     // let hour = currUTCTime.getHours();
+    const currentConditions = [<h3>Current</h3>];
+    const nextConditions = [<h3>Upcoming</h3>];
 
-    let conditionName = "";
     let startTime = new Date();
     let endTime = new Date();
+
+    let nextTime = new Date();
+    let savedNextHour = -1
 
     for (let i = 0; i < conditions.length; i++) {
         const startHour = parseInt(conditions[i].start.split(":")[0], 10);
@@ -25,26 +29,37 @@ function Map({currTime, mapName, conditions} : {currTime: Date; mapName: string;
 
         const endHour = parseInt(conditions[i].end.split(":")[0], 10);
         endTime.setUTCHours(endHour, 0, 0);
+
+        // Set end a day ahead if it wraps to the next day
+        if (endTime.getTime() < startTime.getTime()) {
+            endTime.setDate(endTime.getDate() + 1);
+        }
+
+        const nextHour = parseInt(conditions[(i+1) % conditions.length].start.split(":")[0], 10);
+        nextTime.setUTCHours(nextHour, 0, 0);
+
+        // Set potential next condition a day ahead if it wraps to the next day
+        if (nextTime.getTime() < startTime.getTime()) {
+            nextTime.setDate(nextTime.getDate() + 1);
+        }
+
+        if (currTime.getTime() < nextTime.getTime()) {
+            if (savedNextHour == -1 || nextTime.getHours() == savedNextHour) {
+                savedNextHour = nextTime.getHours()
+                nextConditions.push(<><p>{conditions[(i+1) % conditions.length].name}</p><p>{formatTime(nextTime.getTime() - currTime.getTime())}</p></>)
+            }
+        }
         
         if (startTime.getTime() <= currTime.getTime() && endTime.getTime() > currTime.getTime()) {
-            conditionName = conditions[i].name;
-            break;
+            let conditionName = conditions[i].name;
+            currentConditions.push(<><p>{conditionName}</p><p>{formatTime(endTime.getTime() - currTime.getTime())}</p></>)
         }
     }
-
-    if (conditionName == "") {
-        return;
-    }
     
-    // TODO: Deal with 11 PM -> 12 AM issues
-    // TODO: Technically can have multiple map conditions like Matriarch and Cold Snap at the same time
     return (
         <>  
-            <h2>{conditionName}</h2>
-            {/* <p>{startTime.getUTCHours()}:{startTime.getUTCMinutes()}:{startTime.getUTCSeconds()}</p> */}
-            {/* <p>{endTime.getUTCHours()}:{endTime.getUTCMinutes()}:{endTime.getUTCSeconds()}</p> */}
-            {/* <p>{currTime.getHours()}:{currTime.getMinutes()}:{currTime.getSeconds()}</p> */}
-            <p>{formatTime(endTime.getTime() - currTime.getTime())}</p>
+            {currentConditions.length > 1 ? currentConditions : null}
+            {nextConditions}
         </>
     );
 }
