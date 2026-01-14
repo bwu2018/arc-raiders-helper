@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "cd .. && python3 ./get_data.py",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
