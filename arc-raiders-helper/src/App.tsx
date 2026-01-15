@@ -21,7 +21,7 @@ function App() {
 
   // TODO: fix list keys
   const maps = data.data.map((map: { map_name: string; conditions: { name: string; start: string; end: string; }[] }) =>
-    <li key={map.map_name}>
+    <li key={map.map_name} className={map.map_name.replaceAll(' ','-')}>
       <h1>{map.map_name}</h1>
       <Map currTime={time} conditions={map.conditions}/>
     </li>
@@ -30,8 +30,8 @@ function App() {
   return (
     <>
       {/* <p>{JSON.stringify(data)}</p> */}
-      <h1>Arc Raiders</h1>
-      <ul>
+      <h1 style={{textAlign: 'center'}}>Arc Raiders</h1>
+      <ul className="container">
         {maps}
       </ul>
     </>

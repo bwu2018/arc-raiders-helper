@@ -45,21 +45,31 @@ function Map({currTime, conditions} : {currTime: Date; conditions: {name: string
 
         if (currTime.getTime() < nextTime.getTime()) {
             if (savedNextHour == -1 || nextTime.getHours() == savedNextHour) {
-                savedNextHour = nextTime.getHours()
-                nextConditions.push(<><p>{conditions[(i+1) % conditions.length].name}</p><p>{formatTime(nextTime.getTime() - currTime.getTime())}</p></>)
+                savedNextHour = nextTime.getHours();
+                nextConditions.push(<div className="condition">
+                    <p>{conditions[(i+1) % conditions.length].name}</p>
+                    <p className="time">{formatTime(nextTime.getTime() - currTime.getTime())}</p>
+                    </div>);
             }
         }
         
         if (startTime.getTime() <= currTime.getTime() && endTime.getTime() > currTime.getTime()) {
             let conditionName = conditions[i].name;
-            currentConditions.push(<><p>{conditionName}</p><p>{formatTime(endTime.getTime() - currTime.getTime())}</p></>)
+            currentConditions.push(<div className="condition">
+                <p>{conditionName}</p>
+                <p className="time">{formatTime(endTime.getTime() - currTime.getTime())}</p>
+                </div>);
         }
     }
     
     return (
         <>  
-            {currentConditions.length > 1 ? currentConditions : null}
-            {nextConditions}
+            <div className="current">
+                {currentConditions.length > 1 ? currentConditions : null}
+            </div>
+            <div className="upcoming">
+                {nextConditions}
+            </div>
         </>
     );
 }
