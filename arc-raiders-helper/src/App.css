@@ -1,28 +1,28 @@
-.Spaceport {
-  grid-area: Spaceport;
+.spaceport {
+  grid-area: spaceport;
 }
 
-.Stella-Montis {
-  grid-area: Stella-Montis;
+.stella-montis {
+  grid-area: stella-montis;
 }
 
-.Buried-City {
-  grid-area: Buried-City;
+.buried-city {
+  grid-area: buried-city;
 }
 
-.Dam {
-  grid-area: Dam;
+.dam {
+  grid-area: dam;
 }
 
-.Blue-Gate {
-  grid-area: Blue-Gate;
+.blue-gate {
+  grid-area: blue-gate;
 }
 
 .container {
   display: grid;
   grid-template-areas:
-    '. Spaceport . Stella-Montis'
-    'Buried-City . Dam Blue-Gate';
+    '. spaceport . stella-montis'
+    'buried-city . dam blue-gate';
   max-width: 1500px;
   margin-left: auto;
   margin-right: auto;
@@ -51,5 +51,4 @@ ul {
 body {
   background-color: #212024;
   color: #f7eee0;
-  font-family: Barlow, Helvetica;
 }
