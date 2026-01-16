@@ -7,7 +7,10 @@
     "predev": "cd .. && python3 ./get_data.py",
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "format": "prettier --write .",
+    "lint:js": "eslint --fix .",
+    "lint:css": "stylelint --fix \"**/*.css\" \"**/*.scss\"",
+    "fix-all": "npm run format && npm run lint:js && npm run lint:css",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -21,9 +24,13 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "prettier": "^3.8.0",
+    "stylelint": "^17.0.0",
+    "stylelint-config-standard": "^40.0.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4"
