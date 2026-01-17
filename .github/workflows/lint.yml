@@ -20,13 +20,17 @@ jobs:
           node-version: "25.x"
 
       - name: Install dependencies
-        run: cd arc-raiders-helper && npm install
+        working-directory: ./arc-raiders-helper
+        run: npm install
 
       - name: Run ESLint
+        working-directory: ./arc-raiders-helper
         run: npm run lint:js
 
       - name: Run Stylelint
+        working-directory: ./arc-raiders-helper
         run: npm run lint:css
 
       - name: Run Prettier
+        working-directory: ./arc-raiders-helper
         run: npm run check-format
