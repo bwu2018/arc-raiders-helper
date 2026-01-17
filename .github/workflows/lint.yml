@@ -1,4 +1,4 @@
-name: Lint Code Base
+name: Lint Frontend Code Base
 
 on:
   push:
@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -22,6 +20,7 @@ jobs:
           node-version: "25.x"
 
       - name: Install dependencies
+        working-directory: ./arc-raiders-helper
         run: npm install
 
       - name: Run ESLint
