@@ -8,9 +8,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "format": "prettier --write .",
-    "lint:js": "eslint --fix .",
-    "lint:css": "stylelint --fix \"**/*.css\" \"**/*.scss\"",
-    "fix-all": "npm run format && npm run lint:js && npm run lint:css",
+    "check-format": "prettier --check .",
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"**/*.css\" \"**/*.scss\"",
+    "lint-all": "npm run check-format && npm run lint:js && npm run lint:css",
     "preview": "vite preview"
   },
   "dependencies": {

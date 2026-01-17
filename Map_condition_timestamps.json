@@ -169,17 +169,17 @@
           "end": "03:00"
         },
         {
-          "name": "Uncovered Caches",
-          "start": "05:00",
-          "end": "06:00"
-        },
-        {
           "name": "Locked Gate",
           "start": "05:00",
           "end": "06:00"
         },
         {
           "name": "Husk Graveyard",
+          "start": "05:00",
+          "end": "06:00"
+        },
+        {
+          "name": "Uncovered Caches",
           "start": "05:00",
           "end": "06:00"
         },
@@ -209,12 +209,12 @@
           "end": "15:00"
         },
         {
-          "name": "Uncovered Caches",
+          "name": "Night Raid",
           "start": "17:00",
           "end": "18:00"
         },
         {
-          "name": "Night Raid",
+          "name": "Uncovered Caches",
           "start": "17:00",
           "end": "18:00"
         },
@@ -239,12 +239,12 @@
           "end": "22:00"
         },
         {
-          "name": "Uncovered Caches",
+          "name": "Husk Graveyard",
           "start": "23:00",
           "end": "00:00"
         },
         {
-          "name": "Husk Graveyard",
+          "name": "Uncovered Caches",
           "start": "23:00",
           "end": "00:00"
         }
@@ -304,12 +304,12 @@
           "end": "15:00"
         },
         {
-          "name": "Husk Graveyard",
+          "name": "Uncovered Caches",
           "start": "17:00",
           "end": "18:00"
         },
         {
-          "name": "Uncovered Caches",
+          "name": "Husk Graveyard",
           "start": "17:00",
           "end": "18:00"
         },
