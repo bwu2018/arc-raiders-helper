@@ -20,8 +20,7 @@ jobs:
           node-version: "25.x"
 
       - name: Install dependencies
-        working-directory: ./arc-raiders-helper
-        run: npm install
+        run: cd arc-raiders-helper && npm install
 
       - name: Run ESLint
         run: npm run lint:js
