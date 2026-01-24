@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "cd .. && python3 ./get_data.py",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "format": "prettier --write .",
@@ -16,6 +15,7 @@
   },
   "dependencies": {
     "aws-amplify": "^6.15.10",
+    "axios": "^1.13.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

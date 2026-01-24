@@ -1,8 +1,9 @@
-from django.http import HttpResponse
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import Condition
-from .serializers import ConditionSerializer
+from .serializers import ConditionSerializer, GroupedConditionsSerializer
 
 
 class ConditionViewSet(viewsets.ReadOnlyModelViewSet):
@@ -10,5 +11,8 @@ class ConditionViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ConditionSerializer
 
 
-def index(request):
-    return HttpResponse("Hello, world")
+class ConditionsByMapView(APIView):
+    def get(self, request):
+        queryset = Condition.objects.all()
+        serializer = GroupedConditionsSerializer(queryset)
+        return Response(serializer.data)

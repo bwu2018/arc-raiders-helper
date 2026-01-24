@@ -10,44 +10,41 @@ function formatTime(ms: number) {
   return `${hours}:${formattedMinutes}:${formattedSeconds}`;
 }
 
-function Map({ currTime, conditions }: { currTime: Date; conditions: { name: string; start: string; end: string }[] }) {
-  // const currUTCTime = new Date(currTime.getTime() + (currTime.getTimezoneOffset() * 60 * 1000));
-  // let hour = currUTCTime.getHours();
+function Map({
+  currTime,
+  conditions,
+}: {
+  currTime: Date;
+  conditions: {
+    id: number;
+    map_name: { id: number; name: string };
+    condition: string;
+    start_time: string;
+    end_time: string;
+  }[];
+}) {
   const currentConditions = [<h3>Current</h3>];
   const nextConditions = [<h3>Upcoming</h3>];
 
-  const startTime = new Date();
-  const endTime = new Date();
-
-  const nextTime = new Date();
+  let nextTime = new Date();
   let savedNextHour = -1;
 
-  for (let i = 0; i < conditions.length; i++) {
-    const startHour = parseInt(conditions[i].start.split(':')[0], 10);
-    startTime.setUTCHours(startHour, 0, 0);
+  for (let i = 0; i < conditions.length - 1; i++) {
+    const start = parseInt(conditions[i].start_time, 10);
+    const startTime = new Date(start);
 
-    const endHour = parseInt(conditions[i].end.split(':')[0], 10);
-    endTime.setUTCHours(endHour, 0, 0);
+    const end = parseInt(conditions[i].end_time, 10);
+    const endTime = new Date(end);
 
-    // Set end a day ahead if it wraps to the next day
-    if (endTime.getTime() < startTime.getTime()) {
-      endTime.setDate(endTime.getDate() + 1);
-    }
-
-    const nextHour = parseInt(conditions[(i + 1) % conditions.length].start.split(':')[0], 10);
-    nextTime.setUTCHours(nextHour, 0, 0);
-
-    // Set potential next condition a day ahead if it wraps to the next day
-    if (nextTime.getTime() < startTime.getTime()) {
-      nextTime.setDate(nextTime.getDate() + 1);
-    }
+    const next = parseInt(conditions[i + 1].start_time, 10);
+    nextTime = new Date(next);
 
     if (currTime.getTime() < nextTime.getTime()) {
       if (savedNextHour == -1 || nextTime.getHours() == savedNextHour) {
         savedNextHour = nextTime.getHours();
         nextConditions.push(
           <div className="condition">
-            <p>{conditions[(i + 1) % conditions.length].name}</p>
+            <p>{conditions[(i + 1) % conditions.length].condition}</p>
             <p className="time">{formatTime(nextTime.getTime() - currTime.getTime())}</p>
           </div>,
         );
@@ -55,7 +52,7 @@ function Map({ currTime, conditions }: { currTime: Date; conditions: { name: str
     }
 
     if (startTime.getTime() <= currTime.getTime() && endTime.getTime() > currTime.getTime()) {
-      const conditionName = conditions[i].name;
+      const conditionName = conditions[i].condition;
       currentConditions.push(
         <div className="condition">
           <p>{conditionName}</p>
