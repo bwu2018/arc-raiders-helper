@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-b3uco152ry+j9!0axjd3ri%&$!#5k*vu)89nocxt94cdjc1hkh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["18.224.65.19"]
 
 
 # Application definition
@@ -53,8 +53,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = [
+    "https://main.d2bz6x45i06kud.amplifyapp.com/",
+    "http://localhost:3000",
+]
 
+CSRF_TRUSTED_ORIGINS = ["https://main.d2bz6x45i06kud.amplifyapp.com/"]
 
 ROOT_URLCONF = "config.urls"
 
