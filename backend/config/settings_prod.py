@@ -1,15 +1,31 @@
-import os
+"""
+Production settings for config project.
+"""
 
+import os
+from pathlib import Path
 from .settings import *
 
-# SECURITY SETTINGS
+# Build paths
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-b3uco152ry+j9!0axjd3ri%&$!#5k*vu)89nocxt94cdjc1hkh'
+)
+
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
-# Update ALLOWED_HOSTS with your domain or EC2 public IP
-ALLOWED_HOSTS = [os.environ.get("EC2_IP")]
+# Update ALLOWED_HOSTS with your EC2 IP and domain
+ALLOWED_HOSTS = [
+    '18.224.65.19',
+    'localhost',
+    '127.0.0.1',
+]
 
-# CORS Settings - Update with your Amplify frontend URL
+# CORS Settings
 CORS_ALLOWED_ORIGINS = [
     "https://main.d2bz6x45i06kud.amplifyapp.com",
 ]
@@ -18,28 +34,19 @@ CSRF_TRUSTED_ORIGINS = [
     "https://main.d2bz6x45i06kud.amplifyapp.com",
 ]
 
-# Static files
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATIC_URL = "/static/"
+# Database - use /tmp directory which is always writable
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "/tmp/db.sqlite3",  # Store in /tmp instead of /app
+    }
+}
 
-# Database - Consider PostgreSQL for production
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DB_NAME', 'arcraiders'),
-#         'USER': os.environ.get('DB_USER', 'postgres'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD'),
-#         'HOST': os.environ.get('DB_HOST', 'localhost'),
-#         'PORT': os.environ.get('DB_PORT', '5432'),
-#     }
-# }
+# Static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 
 # Security headers
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = "DENY"
-
-# If using HTTPS (recommended)
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
