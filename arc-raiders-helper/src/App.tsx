@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8000/api/conditions_by_map/')
+      .get('http://18.224.65.19:8000/api/conditions_by_map/')
       .then((res) => setData(res.data.data))
       .catch((err) => console.log(err));
   }, []);
