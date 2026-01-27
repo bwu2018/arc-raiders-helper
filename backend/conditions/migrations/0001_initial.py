@@ -5,28 +5,47 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Map',
+            name="Map",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
             ],
         ),
         migrations.CreateModel(
-            name='Condition',
+            name="Condition",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('condition', models.CharField(max_length=100)),
-                ('start_time', models.CharField(max_length=100)),
-                ('end_time', models.CharField(max_length=100)),
-                ('map_name', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='conditions.map')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("condition", models.CharField(max_length=100)),
+                ("start_time", models.CharField(max_length=100)),
+                ("end_time", models.CharField(max_length=100)),
+                (
+                    "map_name",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="conditions.map"
+                    ),
+                ),
             ],
         ),
     ]

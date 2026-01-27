@@ -4,15 +4,16 @@ Production settings for config project.
 
 import os
 from pathlib import Path
-from .settings import *
+
+# from .settings import *
 
 # Build paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
-    'DJANGO_SECRET_KEY',
-    'django-insecure-b3uco152ry+j9!0axjd3ri%&$!#5k*vu)89nocxt94cdjc1hkh'
+    "DJANGO_SECRET_KEY",
+    "django-insecure-b3uco152ry+j9!0axjd3ri%&$!#5k*vu)89nocxt94cdjc1hkh",
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -20,9 +21,9 @@ DEBUG = False
 
 # Update ALLOWED_HOSTS with your EC2 IP and domain
 ALLOWED_HOSTS = [
-    '18.224.65.19',
-    'localhost',
-    '127.0.0.1',
+    "18.224.65.19",
+    "localhost",
+    "127.0.0.1",
 ]
 
 # CORS Settings
@@ -43,10 +44,10 @@ DATABASES = {
 }
 
 # Static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_URL = "/static/"
 
 # Security headers
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
-X_FRAME_OPTIONS = 'DENY'
+X_FRAME_OPTIONS = "DENY"
