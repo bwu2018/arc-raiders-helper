@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Map from './Map';
-import data from '../../Map_condition_timestamps.json';
+import axios from 'axios';
 
 function App() {
   const currTime = new Date();
@@ -19,9 +19,27 @@ function App() {
     };
   }, []);
 
-  // TODO: fix list keys
-  const maps = data.data.map(
-    (map: { map_name: string; conditions: { name: string; start: string; end: string }[] }) => (
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('http://18.224.65.19:8000/api/conditions_by_map/')
+      .then((res) => setData(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  // // TODO: fix list keys
+  const maps = data.map(
+    (map: {
+      map_name: string;
+      conditions: {
+        id: number;
+        map_name: { id: number; name: string };
+        condition: string;
+        start_time: string;
+        end_time: string;
+      }[];
+    }) => (
       <li key={map.map_name} className={map.map_name.replaceAll(' ', '-').toLowerCase()}>
         <h1>{map.map_name}</h1>
         <Map currTime={time} conditions={map.conditions} />
