@@ -30,7 +30,7 @@ jobs:
             set -e
             
             echo "📦 Navigating to backend directory..."
-            cd ~/arc-raiders-backend
+            cd ~/arc-raiders-helper/backend
             
             echo "🔄 Pulling latest changes..."
             git pull origin main
