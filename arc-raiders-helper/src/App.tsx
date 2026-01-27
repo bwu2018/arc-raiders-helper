@@ -3,6 +3,8 @@ import './App.css';
 import Map from './Map';
 import axios from 'axios';
 
+const API_URL = 'https://xnc7fo4imk.execute-api.us-east-2.amazonaws.com';
+
 function App() {
   const currTime = new Date();
   const [time, setTime] = useState(currTime);
@@ -23,7 +25,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://18.224.65.19:8000/api/conditions_by_map/')
+      .get(`${API_URL}/api/conditions_by_map/`)
       .then((res) => setData(res.data.data))
       .catch((err) => console.log(err));
   }, []);
