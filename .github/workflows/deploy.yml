@@ -40,7 +40,7 @@ jobs:
             --exclude='db.sqlite3' \
             ./backend/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:~/arc-raiders-helper/backend/
 
-      - name: Deploy to EC2
+      - name: Deploy and Populate Database
         run: |
           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'ENDSSH'
             set -e
@@ -58,9 +58,9 @@ jobs:
             docker-compose -f compose.prod.yaml up -d
             
             echo "⏳ Waiting for containers to be healthy..."
-            # Wait for container to be running (not just started)
+            # Wait for container to be fully running
             for i in {1..30}; do
-              STATUS=$(docker-compose -f compose.prod.yaml ps -q web | xargs docker inspect -f '{{.State.Status}}')
+              STATUS=$(docker-compose -f compose.prod.yaml ps -q web | xargs docker inspect -f '{{.State.Status}}' 2>/dev/null || echo "not-ready")
               if [ "$STATUS" = "running" ]; then
                 echo "✅ Container is running!"
                 break
@@ -69,8 +69,8 @@ jobs:
               sleep 2
             done
             
-            # Additional wait for Django to be ready
-            echo "Waiting for Django to be ready..."
+            # Wait for Django to initialize
+            echo "Waiting for Django to initialize..."
             sleep 10
             
             echo "📊 Checking container status..."
@@ -79,24 +79,10 @@ jobs:
             echo "📝 Showing recent logs..."
             docker-compose -f compose.prod.yaml logs --tail=30 web
             
-            echo "✅ Deployment completed successfully!"
-          ENDSSH
-
-      - name: Populate Database
-        run: |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'ENDSSH'
-            set -e
-            
             echo "📊 Populating database with events schedule..."
-            cd ~/arc-raiders-helper/backend
-            
-            # Wait a bit more to ensure container is fully ready
-            sleep 5
-            
-            # Run the command
             docker-compose -f compose.prod.yaml exec -T web python manage.py get_events_schedule
             
-            echo "✅ Database populated successfully!"
+            echo "✅ Deployment and database population completed successfully!"
           ENDSSH
 
       - name: Verify Deployment
