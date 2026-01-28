@@ -58,7 +58,20 @@ jobs:
             docker-compose -f compose.prod.yaml up -d
             
             echo "⏳ Waiting for containers to be healthy..."
-            sleep 15
+            # Wait for container to be running (not just started)
+            for i in {1..30}; do
+              STATUS=$(docker-compose -f compose.prod.yaml ps -q web | xargs docker inspect -f '{{.State.Status}}')
+              if [ "$STATUS" = "running" ]; then
+                echo "✅ Container is running!"
+                break
+              fi
+              echo "Waiting for container to start... ($i/30)"
+              sleep 2
+            done
+            
+            # Additional wait for Django to be ready
+            echo "Waiting for Django to be ready..."
+            sleep 10
             
             echo "📊 Checking container status..."
             docker-compose -f compose.prod.yaml ps
@@ -76,6 +89,11 @@ jobs:
             
             echo "📊 Populating database with events schedule..."
             cd ~/arc-raiders-helper/backend
+            
+            # Wait a bit more to ensure container is fully ready
+            sleep 5
+            
+            # Run the command
             docker-compose -f compose.prod.yaml exec -T web python manage.py get_events_schedule
             
             echo "✅ Database populated successfully!"
