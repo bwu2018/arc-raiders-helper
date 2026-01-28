@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - "backend/**" # Only deploy when backend files change
-  workflow_dispatch: # Allow manual triggering
+      - "backend/**"
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -18,26 +18,38 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" | tr -d '\r' > ~/.ssh/github-actions
+          echo "$SSH_KEY" > ~/.ssh/github-actions
           chmod 600 ~/.ssh/github-actions
           chmod 700 ~/.ssh
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Test SSH Connection
+        run: |
+          ssh -i ~/.ssh/github-actions -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "echo 'SSH connection successful'"
+
+      - name: Copy Backend Files to EC2
+        run: |
+          rsync -avz -e "ssh -i ~/.ssh/github-actions -o StrictHostKeyChecking=no" \
+            --exclude='.git' \
+            --exclude='__pycache__' \
+            --exclude='*.pyc' \
+            --exclude='db.sqlite3' \
+            ./backend/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:~/arc-raiders-helper/backend/
+
       - name: Deploy to EC2
         run: |
-          ssh -i ~/.ssh/github-actions ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          ssh -i ~/.ssh/github-actions -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'ENDSSH'
             set -e
             
             echo "📦 Navigating to backend directory..."
             cd ~/arc-raiders-helper/backend
             
-            echo "🔄 Pulling latest changes..."
-            git pull origin main
-            
             echo "🛑 Stopping containers..."
-            docker-compose -f compose.prod.yaml down
+            docker-compose -f compose.prod.yaml down || true
             
             echo "🏗️ Building new Docker image..."
             docker-compose -f compose.prod.yaml build --no-cache
@@ -46,26 +58,31 @@ jobs:
             docker-compose -f compose.prod.yaml up -d
             
             echo "⏳ Waiting for containers to be healthy..."
-            sleep 10
+            sleep 15
             
             echo "📊 Checking container status..."
             docker-compose -f compose.prod.yaml ps
             
             echo "📝 Showing recent logs..."
-            docker-compose -f compose.prod.yaml logs --tail=50
+            docker-compose -f compose.prod.yaml logs --tail=30 web
             
             echo "✅ Deployment completed successfully!"
-          EOF
-      - name: Fill Data
-        run: |
-          docker-compose -f compose.prod.yaml exec -T web python manage.py get_events_schedule
+          ENDSSH
 
       - name: Verify Deployment
         run: |
           echo "🧪 Testing API endpoint..."
           sleep 5
-          curl -f http://${{ secrets.EC2_HOST }}:8000/api/conditions_by_map/ || exit 1
-          echo "✅ API is responding correctly!"
+          for i in {1..5}; do
+            if curl -f -s http://${{ secrets.EC2_HOST }}:8000/api/conditions_by_map/ > /dev/null; then
+              echo "✅ API is responding correctly!"
+              exit 0
+            fi
+            echo "Attempt $i failed, retrying in 5 seconds..."
+            sleep 5
+          done
+          echo "❌ API failed to respond after 5 attempts"
+          exit 1
 
       - name: Cleanup
         if: always()
