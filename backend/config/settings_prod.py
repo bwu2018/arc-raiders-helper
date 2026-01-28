@@ -5,7 +5,7 @@ Production settings for config project.
 import os
 from pathlib import Path
 
-# from .settings import *
+from .settings import *  # noqa: F403, F401
 
 # Build paths
 BASE_DIR = Path(__file__).resolve().parent.parent
