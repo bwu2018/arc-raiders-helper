@@ -15,7 +15,7 @@ class Command(BaseCommand):
         for data in response["data"]:
             map_name, _ = Map.objects.get_or_create(name=data["map"])
 
-            Condition.objects.create(
+            Condition.objects.get_or_create(
                 map_name=map_name,
                 condition=data["name"],
                 start_time=data["startTime"],
