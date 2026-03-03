@@ -1,101 +1,101 @@
-name: Deploy to EC2
+# name: Deploy to EC2
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - "backend/**"
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - "backend/**"
+#   workflow_dispatch:
 
-jobs:
-  deploy:
-    name: Deploy Django Backend to EC2
-    runs-on: ubuntu-latest
+# jobs:
+#   deploy:
+#     name: Deploy Django Backend to EC2
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
 
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.EC2_SSH_KEY }}
-          known_hosts: "placeholder"
+#       - name: Install SSH Key
+#         uses: shimataro/ssh-key-action@v2
+#         with:
+#           key: ${{ secrets.EC2_SSH_KEY }}
+#           known_hosts: "placeholder"
 
-      - name: Add Known Hosts
-        run: |
-          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts 2>&1 || echo "Warning: ssh-keyscan failed, will use StrictHostKeyChecking=no"
+#       - name: Add Known Hosts
+#         run: |
+#           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts 2>&1 || echo "Warning: ssh-keyscan failed, will use StrictHostKeyChecking=no"
 
-      - name: Test SSH Connection
-        run: |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "echo 'SSH connection successful'"
+#       - name: Test SSH Connection
+#         run: |
+#           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} "echo 'SSH connection successful'"
 
-      - name: Copy Backend Files to EC2
-        run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
-            --exclude='.git' \
-            --exclude='__pycache__' \
-            --exclude='*.pyc' \
-            --exclude='db.sqlite3' \
-            ./backend/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:~/arc-raiders-helper/backend/
+#       - name: Copy Backend Files to EC2
+#         run: |
+#           rsync -avz -e "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+#             --exclude='.git' \
+#             --exclude='__pycache__' \
+#             --exclude='*.pyc' \
+#             --exclude='db.sqlite3' \
+#             ./backend/ ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:~/arc-raiders-helper/backend/
 
-      - name: Deploy and Populate Database
-        run: |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'ENDSSH'
-            set -e
-            
-            echo "📦 Navigating to backend directory..."
-            cd ~/arc-raiders-helper/backend
-            
-            echo "🛑 Stopping containers..."
-            docker-compose -f compose.prod.yaml down || true
-            
-            echo "🏗️ Building new Docker image..."
-            docker-compose -f compose.prod.yaml build --no-cache
-            
-            echo "🚀 Starting containers..."
-            docker-compose -f compose.prod.yaml up -d
-            
-            echo "⏳ Waiting for containers to be healthy..."
-            # Wait for container to be fully running
-            for i in {1..30}; do
-              STATUS=$(docker-compose -f compose.prod.yaml ps -q web | xargs docker inspect -f '{{.State.Status}}' 2>/dev/null || echo "not-ready")
-              if [ "$STATUS" = "running" ]; then
-                echo "✅ Container is running!"
-                break
-              fi
-              echo "Waiting for container to start... ($i/30)"
-              sleep 2
-            done
-            
-            # Wait for Django to initialize
-            echo "Waiting for Django to initialize..."
-            sleep 10
-            
-            echo "📊 Checking container status..."
-            docker-compose -f compose.prod.yaml ps
-            
-            echo "📝 Showing recent logs..."
-            docker-compose -f compose.prod.yaml logs --tail=30 web
-            
-            echo "📊 Populating database with events schedule..."
-            docker-compose -f compose.prod.yaml exec -T web python manage.py get_events_schedule
-            
-            echo "✅ Deployment and database population completed successfully!"
-          ENDSSH
+#       - name: Deploy and Populate Database
+#         run: |
+#           ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'ENDSSH'
+#             set -e
 
-      - name: Verify Deployment
-        run: |
-          echo "🧪 Testing API endpoint..."
-          sleep 5
-          for i in {1..5}; do
-            if curl -f -s http://${{ secrets.EC2_HOST }}:8000/api/conditions_by_map/ > /dev/null; then
-              echo "✅ API is responding correctly!"
-              exit 0
-            fi
-            echo "Attempt $i failed, retrying in 5 seconds..."
-            sleep 5
-          done
-          echo "❌ API failed to respond after 5 attempts"
-          exit 1
+#             echo "📦 Navigating to backend directory..."
+#             cd ~/arc-raiders-helper/backend
+
+#             echo "🛑 Stopping containers..."
+#             docker-compose -f compose.prod.yaml down || true
+
+#             echo "🏗️ Building new Docker image..."
+#             docker-compose -f compose.prod.yaml build --no-cache
+
+#             echo "🚀 Starting containers..."
+#             docker-compose -f compose.prod.yaml up -d
+
+#             echo "⏳ Waiting for containers to be healthy..."
+#             # Wait for container to be fully running
+#             for i in {1..30}; do
+#               STATUS=$(docker-compose -f compose.prod.yaml ps -q web | xargs docker inspect -f '{{.State.Status}}' 2>/dev/null || echo "not-ready")
+#               if [ "$STATUS" = "running" ]; then
+#                 echo "✅ Container is running!"
+#                 break
+#               fi
+#               echo "Waiting for container to start... ($i/30)"
+#               sleep 2
+#             done
+
+#             # Wait for Django to initialize
+#             echo "Waiting for Django to initialize..."
+#             sleep 10
+
+#             echo "📊 Checking container status..."
+#             docker-compose -f compose.prod.yaml ps
+
+#             echo "📝 Showing recent logs..."
+#             docker-compose -f compose.prod.yaml logs --tail=30 web
+
+#             echo "📊 Populating database with events schedule..."
+#             docker-compose -f compose.prod.yaml exec -T web python manage.py get_events_schedule
+
+#             echo "✅ Deployment and database population completed successfully!"
+#           ENDSSH
+
+#       - name: Verify Deployment
+#         run: |
+#           echo "🧪 Testing API endpoint..."
+#           sleep 5
+#           for i in {1..5}; do
+#             if curl -f -s http://${{ secrets.EC2_HOST }}:8000/api/conditions_by_map/ > /dev/null; then
+#               echo "✅ API is responding correctly!"
+#               exit 0
+#             fi
+#             echo "Attempt $i failed, retrying in 5 seconds..."
+#             sleep 5
+#           done
+#           echo "❌ API failed to respond after 5 attempts"
+#           exit 1

@@ -20,18 +20,18 @@ DEBUG = False
 
 # Update ALLOWED_HOSTS with your EC2 IP and domain
 ALLOWED_HOSTS = [
-    "18.224.65.19",
+    "https://arc-raiders-helper-8rvn.onrender.com",
     "localhost",
     "127.0.0.1",
 ]
 
 # CORS Settings
 CORS_ALLOWED_ORIGINS = [
-    "https://main.d2bz6x45i06kud.amplifyapp.com",
+    "https://arc-raiders-helper-frontend.onrender.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://main.d2bz6x45i06kud.amplifyapp.com",
+    "https://arc-raiders-helper-frontend.onrender.com",
 ]
 
 # Database - use /tmp directory which is always writable
