@@ -7,7 +7,13 @@ The command `python manage.py get_events_schedule` gets data from API and fills 
 
 Django API: `/api/conditions_by_map/` and `api/conditions/`
 
-Frontend: [https://main.d2bz6x45i06kud.amplifyapp.com](https://main.d2bz6x45i06kud.amplifyapp.com)
+(Switched from AWS to Render free plan)
+~~Frontend: [https://main.d2bz6x45i06kud.amplifyapp.com](https://main.d2bz6x45i06kud.amplifyapp.com)~~
+
+Frontend: [https://arc-raiders-helper-frontend.onrender.com/](https://arc-raiders-helper-frontend.onrender.com/)
+
+The Render free plan has to spin up after inactivity, so there may be a minute of downtime.
+To check exactly when this is, you can visit the backend server and see if it is running: [https://arc-raiders-helper-8rvn.onrender.com/api/](https://arc-raiders-helper-8rvn.onrender.com/api/).
 
 ## 🛠️ Tech Stack
 
