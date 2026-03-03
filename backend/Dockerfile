@@ -31,4 +31,9 @@ ENV DJANGO_SETTINGS_MODULE=config.settings_prod
 EXPOSE 8000
 
 # Run migrations, seed DB, then start gunicorn
-CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && python manage.py get_events_schedule && gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3"]
+CMD ["sh", "-c", "\
+  python manage.py migrate --noinput && \
+  python manage.py collectstatic --noinput && \
+  python manage.py get_events_schedule && \
+  gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3 \
+"]
