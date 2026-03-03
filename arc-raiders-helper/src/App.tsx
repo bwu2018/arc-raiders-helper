@@ -3,7 +3,7 @@ import './App.css';
 import Map from './Map';
 import axios from 'axios';
 
-const API_URL = 'https://xnc7fo4imk.execute-api.us-east-2.amazonaws.com';
+const API_URL = 'https://arc-raiders-helper-8rvn.onrender.com';
 
 function App() {
   const currTime = new Date();
