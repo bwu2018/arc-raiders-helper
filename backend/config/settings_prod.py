@@ -20,7 +20,7 @@ DEBUG = False
 
 # Update ALLOWED_HOSTS with your EC2 IP and domain
 ALLOWED_HOSTS = [
-    "https://arc-raiders-helper-8rvn.onrender.com",
+    "arc-raiders-helper-8rvn.onrender.com",
     "localhost",
     "127.0.0.1",
 ]

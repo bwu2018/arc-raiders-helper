@@ -24,8 +24,11 @@ COPY . .
 RUN mkdir -p /app/staticfiles && \
     chmod -R 777 /app
 
+# Use production settings
+ENV DJANGO_SETTINGS_MODULE=config.settings_prod
+
 # Expose the port
 EXPOSE 8000
 
 # Run the application (NO USER SWITCHING)
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 3"]
